@@ -9,6 +9,8 @@
 #import "CartListCell.h"
 
 @implementation CartListCell
+@synthesize nameLabel;
+@synthesize priceLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

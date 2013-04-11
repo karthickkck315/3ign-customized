@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ImageScroll.h"
 #import "ProductDetailsViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "ImageDownloader.h"
+
+
+
 
 @interface ImageSliderViewController : UIViewController<UIScrollViewDelegate>{
 
@@ -18,12 +23,21 @@
   
     NSURLConnection *connection;
     NSMutableData *data;
+    UIImageView *grey_imgView;
+    
+    NSMutableArray *tempArray;
+    
 }
-@property (strong, nonatomic) IBOutlet UIButton *closeButton;
+@property (nonatomic,retain) IBOutlet UIButton *closeButton;
 - (IBAction)closeBut:(id)sender;
 @property (strong, nonatomic) IBOutlet UIImageView *mainView;
 @property (strong, nonatomic) IBOutlet ImageScroll *scroller;
 @property(nonatomic,retain) NSMutableArray *imageURLArray;
+
+@property(nonatomic,retain) NSMutableArray *imagesArray;
+
+
+
 -(UIImage *)getImage:(NSString *)urlString;
 - (void)loadImageFromURL:(NSString*)urlstr;
 - (UIImage*) image;

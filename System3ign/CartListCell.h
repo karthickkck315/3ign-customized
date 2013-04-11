@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CartListCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end

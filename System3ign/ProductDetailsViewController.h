@@ -10,26 +10,41 @@
 #import "DataController.h"
 #import "Product.h"
 #import "SignUpView.h"
-
+#import "ImageDownloader.h"
 #import "Image.h"
 #import "ImageScroll.h"
+#import "CustomAlertViewController.h"
+#import "ShareViewController.h"
+
 
 
 #import "ImageSliderViewController.h"
-@interface ProductDetailsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>{
-
+@interface ProductDetailsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate, ImageDownloaderDelegate>{
+// NSMutableArray *imageURLArray;
     Product *productObject;
     BOOL isInsert;
     UIButton *button;
     SignUpView *subView;
     BOOL isfirstTimeParsing;
     UILabel *label;
-        
+    UIImageView *grey_imgView;
     
-   
+    NSURLConnection* connection;
+    NSMutableData* data;
     
+    NSString *productUrl;
+    UIActivityIndicatorView *loadingIndicator;
+    
+    
+    NSMutableArray* imagesForSlider;  
         
 }
+@property(nonatomic,retain)NSString *productUrl;
+
+
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backBarbutton;
+//@property(nonatomic,retain) NSMutableArray *imageURLArray;
 //technical properties
 @property(nonatomic,retain)Product *vendorProductObject;
 @property(nonatomic,retain)Product *productObject;
@@ -48,11 +63,17 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *vendorProductList;
 
+@property(nonatomic,retain)IBOutlet  UIImageView *grey_imgView;
 
 
 
+@property (strong, nonatomic) IBOutlet UIView *discriptionview;
 
 @property (strong, nonatomic) IBOutlet UIImageView *vendorProductImg;
+
+
+
+
 //design properties
 -(IBAction)signNow:(id)sender;
 - (IBAction)addToCartAction:(id)sender;
@@ -61,7 +82,7 @@
 - (IBAction)productFromVendorAction:(id)sender;
 - (IBAction)signIT3ign:(id)sender;
 
-
+-(void)removeGreyBackground;
 
 
 @property (strong, nonatomic) IBOutlet UITextView *descriptiontextview;
@@ -89,5 +110,10 @@
 
 - (IBAction)purchase:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIButton *ignITNowButton;
+@property (strong, nonatomic) IBOutlet UIButton *addTocartButton;
+
+
+-(void)DownloadImage;
 
 @end

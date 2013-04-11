@@ -13,6 +13,8 @@
 @end
 
 @implementation CustomAlertViewController
+@synthesize titleLable;
+@synthesize titleText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,11 +28,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view setBackgroundColor:[UIColor clearColor]];
 	// Do any additional setup after loading the view.
 }
+-(void)viewWillAppear:(BOOL)animated{
+
+    titleLable.text=titleText;
+    
+}
+
 
 - (void)viewDidUnload
 {
+    [self setTitleLable:nil];
+    [self setTitleText:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -40,4 +52,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)closeAlert:(id)sender {
+    
+    
+    [self.view removeFromSuperview];
+    
+    
+}
 @end

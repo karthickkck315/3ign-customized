@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface SignInView : UIView
+@property (strong, nonatomic) IBOutlet UIButton *closeButton;
+@property (strong, nonatomic) IBOutlet UIButton *signInButton;
+@property (strong, nonatomic) IBOutlet UIButton *forgotpassword;
+@property (strong, nonatomic) IBOutlet UITextField *usernametext;
+@property (strong, nonatomic) IBOutlet UITextField *passwordTxt;
+@property (strong, nonatomic) IBOutlet UIButton *check;
+
 
 @end

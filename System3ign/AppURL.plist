@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>RegistrationURL</key>
+	<string>http://www.24hourlab.com/~firstemp/3ign/user.php</string>
+	<key>ProductDetails</key>
+	<string>http://24hourlab.com/~firstemp/3ign/product.php?id=FDW1231</string>
+	<key>SignInURL</key>
+	<string>http://www.24hourlab.com/~firstemp/3ign/pass_check.php</string>
+	<key>ProductID</key>
+	<string>http://24hourlab.com/~firstemp/3ign/product.php?id=pID</string>
+	<key>CardInfoRegistration</key>
+	<string>http://www.24hourlab.com/~firstemp/3ign/cc.php</string>
+	<key>Set3ignITPassword</key>
+	<string>http://www.24hourlab.com/~firstemp/3ign/pass_set.php</string>
+</dict>
 </plist>

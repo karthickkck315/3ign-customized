@@ -13,6 +13,7 @@
 
 @required
 -(void)updateImage:(UIImage*)image withTag:(int)imageTag;
+-(void)updateProduct:(NSMutableData *)mydata withTag:(int)imageTag;
 @end
 
 
@@ -27,5 +28,5 @@
 -(void)loadImage:(NSString*)urlString;
 @property(nonatomic, retain) id delegate;
 @property(nonatomic) int imageTag;
-
+@property(nonatomic)BOOL isProduct;
 @end

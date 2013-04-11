@@ -14,7 +14,6 @@
 
 
 
-
 @interface DataController : NSObject <NSXMLParserDelegate>
 {
 
@@ -31,19 +30,29 @@
     BOOL isMainProduct;
     BOOL isRelated;
     BOOL isGreenare3ign;
-    BOOL *isdescription;
-    BOOL *isTac;
+    BOOL isdescription;
+    BOOL isTac;
+    NSString *ProductUrlString;
+    
+   
 
 }
 @property(nonatomic) BOOL isProduct;
 @property(nonatomic)BOOL isSameVendor;
 @property(nonatomic,retain)Product *pdtObject;
 @property(nonatomic,retain)NSMutableArray *productArray;
+@property(nonatomic,retain)NSString *ProductUrlString;
 
 -(Product *)getProductDetails:(NSString *)urlString;
 -(void)registeringUserDetails:(NSMutableDictionary *)dic;
 
 - (void)requestFinished:(ASIHTTPRequest *)request;
 - (void)requestFailed:(ASIHTTPRequest *)request;
+
+
+-(void)getmyProductDetails;
+-(Product *)parseProductDetails:(NSMutableData *)data;
+
+
 
 @end

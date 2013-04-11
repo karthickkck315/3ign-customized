@@ -9,5 +9,6 @@
 #import "Product.h"
 
 @implementation Product
+@synthesize productID,productName,price,Currency,pictureURl,productDescription,tac,sameVendor,relatedProduct,inStore,mainpicURL;
 
 @end

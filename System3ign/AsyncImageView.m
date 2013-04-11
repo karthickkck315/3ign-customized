@@ -73,7 +73,7 @@
 	[self addSubview:imageView];
 //	imageView.frame = self.bounds;
 //    CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-    imageView.frame = CGRectMake(6, 0, 75, 70);
+    imageView.frame = CGRectMake(0, 0, 75, 70);
  //   NSLog(@"imageView after setting frame -->%@", [imageView description]);
 
 	[imageView setNeedsLayout];

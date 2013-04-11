@@ -10,4 +10,8 @@
 
 @interface LogOutViewController : UIViewController
 
+- (IBAction)Logout:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UIImageView *sliderimage;
+
 @end

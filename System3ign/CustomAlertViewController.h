@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomAlertViewController : UIViewController
+@interface CustomAlertViewController : UIViewController{
+
+    NSString *titleText;
+
+}
+@property(nonatomic,retain)IBOutlet NSString *titleText;
+- (IBAction)closeAlert:(id)sender;
+@property (strong, nonatomic) IBOutlet UILabel *titleLable;
 
 @end

@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @interface DrawPatternLockView : UIView {
-  NSValue *_trackPointValue;
-  NSMutableArray *_dotViews;
+    NSValue *_trackPointValue;
+    NSMutableArray *_dotViews;
+    //NSString *isScreenType;
 }
-
 
 - (void)clearDotViews;
 - (void)addDotView:(UIView*)view;
 - (void)drawLineFromLastDotTo:(CGPoint)pt;
+
+@property(nonatomic, retain)NSString *colorImage;
+
+
+
 @end

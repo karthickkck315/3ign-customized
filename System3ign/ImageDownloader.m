@@ -11,7 +11,7 @@
 @implementation ImageDownloader
 @synthesize delegate;
 @synthesize imageTag;
-
+@synthesize isProduct;
 
 -(void)doThis{
     
@@ -23,6 +23,7 @@
 
 
 -(void)loadImage:(NSString*)urlString{
+    NSLog(@"load image");
 
     urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     //hidden to release version 1.0  NSLog(@"image url-->%@", urlString);
@@ -47,18 +48,49 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
-    //hidden to release version 1.0  NSLog(@"connection did finish laoding image data., %d", [data length]/1024);
-    if([self.delegate conformsToProtocol:@protocol(ImageDownloaderDelegate)]) {
-        BOOL test = [self.delegate respondsToSelector:@selector(testPrint:)];
-        //hidden to release version 1.0  NSLog(@"%@", test?@"Yes":@"No");
-        if (!test) {
-            [self.delegate updateImage:([UIImage imageWithData:data]) withTag:imageTag];
+    
+    
+    NSLog(@"connection did finish loading");
+    
+    
+    if (isProduct) {
+        
+        
+        if([self.delegate conformsToProtocol:@protocol(ImageDownloaderDelegate)]) {
+            BOOL test = [self.delegate respondsToSelector:@selector(testPrint:)];
+            //hidden to release version 1.0  NSLog(@"%@", test?@"Yes":@"No");
+            if (!test) {
+                [self.delegate updateProduct:data withTag:imageTag];
+                
+                
+                
+                
+            }else {
+                //hidden to release version 1.0  NSLog(@"No 'updateImage' method found");
+            }
         }else {
-            //hidden to release version 1.0  NSLog(@"No 'updateImage' method found");
+            //hidden to release version 1.0  NSLog(@"No CustomDelegate Found..");
         }
+        
     }else {
-        //hidden to release version 1.0  NSLog(@"No CustomDelegate Found..");
-    }
+                
+                    
+    
+    
+                //hidden to release version 1.0  NSLog(@"connection did finish laoding image data., %d", [data length]/1024);
+                if([self.delegate conformsToProtocol:@protocol(ImageDownloaderDelegate)]) {
+                    BOOL test = [self.delegate respondsToSelector:@selector(testPrint:)];
+                    //hidden to release version 1.0  NSLog(@"%@", test?@"Yes":@"No");
+                    if (!test) {
+                        [self.delegate updateImage:([UIImage imageWithData:data]) withTag:imageTag];
+                    }else {
+                        //hidden to release version 1.0  NSLog(@"No 'updateImage' method found");
+                    }
+                }else {
+                    //hidden to release version 1.0  NSLog(@"No CustomDelegate Found..");
+                }
+                
+  }
     connection = nil;
 }
 

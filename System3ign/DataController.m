@@ -12,25 +12,42 @@
 
 @implementation DataController
 @synthesize pdtObject,productArray,isSameVendor,isProduct;
-
+@synthesize ProductUrlString;
 
 
 -(Product *)getProductDetails:(NSString *)urlString{
+
+//-(void)getmyProductDetails{
       
     
     NSLog(@"get product details");
     vendorProductObject=[[Product alloc]init];
     relatedProductObject=[[Product alloc]init];
+   // NSLog(@"product url %@",urlString);
     
-    
-//    productDic=[[NSMutableDictionary alloc]init];
-//    productArray=[[NSMutableArray alloc]init];
+    productDic=[[NSMutableDictionary alloc]init];
+   productArray=[[NSMutableArray alloc]init];
     NSURL *url=[NSURL URLWithString:urlString];
+    
+//    ImageDownloader *imgDownloaderObject=[[ImageDownloader alloc]init];
+//    imgDownloaderObject.delegate = self;
+//    imgDownloaderObject.isDatacontroller=YES;
+//    
+//    [imgDownloaderObject loadImage:urlString];
+    
+
+    
+    
+    
+    
     pdtObject = [[Product alloc]init];
 
     
-//    pdtObject.price=@"20";
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+  //  pdtObject.price=@"20";
+    NSXMLParser *xmlParser = [[NSXMLParser alloc]initWithContentsOfURL:url];
+    
+    
+    
     [xmlParser setDelegate:self];
     BOOL success=[xmlParser parse];
     if(success){
@@ -53,7 +70,7 @@
     NSLog(@"main pic  %@",pdtObject.mainpicURL);
     NSLog(@"pic1  %@",pdtObject.pictureURl);
     NSLog(@"desc %@",pdtObject.productDescription);
-    NSLog(@"tac %@",pdtObject.tac);
+    NSLog(@"data controller tac %@",pdtObject.tac);
 
 
 
@@ -76,7 +93,99 @@
 //
     return pdtObject;
     
+//    ProductDetailsViewController *pdvc=[[ProductDetailsViewController alloc]init];
+//    pdvc.productObject=pdtObject;
+    
+    
 }
+
+
+
+
+
+
+-(Product *)parseProductDetails:(NSMutableData *)data{
+    
+    //-(void)getmyProductDetails{
+    
+    
+    NSLog(@"get product details");
+    vendorProductObject=[[Product alloc]init];
+    relatedProductObject=[[Product alloc]init];
+    // NSLog(@"product url %@",urlString);
+    
+    productDic=[[NSMutableDictionary alloc]init];
+    productArray=[[NSMutableArray alloc]init];
+
+    pdtObject = [[Product alloc]init];
+    
+    
+    //  pdtObject.price=@"20";
+    NSXMLParser *xmlParser = [[NSXMLParser alloc]initWithData:data];
+    
+    
+    
+    [xmlParser setDelegate:self];
+    BOOL success=[xmlParser parse];
+    if(success){
+        NSLog(@"No Errors");
+        
+        
+    }
+    else{
+        NSLog(@"Error Error Error!!!");
+    }
+    
+    
+    
+    NSLog(@"id---> %@",pdtObject.productID);
+    NSLog(@"name---> %@",pdtObject.productName);
+    NSLog(@"name---> %d",[pdtObject.productName length]);
+    
+    NSLog(@"price %@",pdtObject.price);
+    NSLog(@"currency %@",pdtObject.Currency);
+    NSLog(@"main pic  %@",pdtObject.mainpicURL);
+    NSLog(@"pic1  %@",pdtObject.pictureURl);
+    NSLog(@"desc %@",pdtObject.productDescription);
+    NSLog(@"data controller tac %@",pdtObject.tac);
+    
+    
+    
+    
+    
+    // NSLog(@"id---> %@",pdtObject.productID);
+    // NSLog(@"name---> %@",pdtObject.productName);
+    NSLog(@" pic count    %d",[pdtObject.pictureURl count]);
+    NSLog(@"vendor array count    %d",[pdtObject.sameVendor count]);
+    NSLog(@"relatd array count  %d",[pdtObject.relatedProduct count]);
+    
+    Product *exampleProductObj=[pdtObject.sameVendor objectAtIndex:0];
+    
+    NSLog(@"vendor id%@",exampleProductObj.productID);
+    
+    //    
+    //    exampleProductObj=(Product *)[pdtObject.relatedProduct objectAtIndex:0];
+    //
+    //    NSLog(@"relat id%@",exampleProductObj.productID);
+    //
+   // return pdtObject;
+    
+//        ProductDetailsViewController *pdvc=[[ProductDetailsViewController alloc]init];
+//        pdvc.productObject=pdtObject;
+    
+    
+    return pdtObject;
+
+    
+    
+}
+
+
+
+
+
+
+
 
 -(void)registeringUserDetails:(NSMutableDictionary *)dic{
 
@@ -96,6 +205,8 @@
     NSLog(@"url-->%@",urlString);
     
    
+    
+    
     
     //send as post method
         
@@ -196,47 +307,50 @@
     
     
     if ([currentElement isEqualToString:@"greenare3ign"]){
-        NSLog(@"isGreenare3ign-->%d",isGreenare3ign?YES:NO);
-        isGreenare3ign=YES;
-        NSLog(@"isGreenare3ign-->%d",isGreenare3ign?YES:NO);
+            NSLog(@"isGreenare3ign-->%d",isGreenare3ign?YES:NO);
+            isGreenare3ign=YES;
+            NSLog(@"isGreenare3ign-->%d",isGreenare3ign?YES:NO);
         
     }
     
     
     if ([currentElement isEqualToString:@"sameVendor"]){
-        isSameVendor=YES;
-         NSLog(@"isSameVendor-->%d",isSameVendor?YES:NO);
+            isSameVendor=YES;
+            NSLog(@"isSameVendor-->%d",isSameVendor?YES:NO);
     
     }
     
     if ([currentElement isEqualToString:@"related"]){
-        isRelated=YES;
-         NSLog(@"isrelate-->%d",isRelated?YES:NO);
+            isRelated=YES;
+            NSLog(@"isrelate-->%d",isRelated?YES:NO);
     }
 
     if ([currentElement isEqualToString:@"product"]){
         
         
-         if(isSameVendor){
-            isProduct=YES;
-             NSLog(@"isProduct-->%d",isProduct?YES:NO);
+            if(isSameVendor){
+                isProduct=YES;
+                NSLog(@"isProduct-->%d",isProduct?YES:NO);
             
-        }else if(isRelated){
-            isProduct=YES;
-            NSLog(@"isProduct-->%d",isProduct?YES:NO);
-        }if (isGreenare3ign){
-            isMainProduct=YES;
+            }else if(isRelated){
+                isProduct=YES;
+                NSLog(@"isProduct-->%d",isProduct?YES:NO);
+            }if (isGreenare3ign){
+                isMainProduct=YES;
             //isGreenare3ign=NO;
-            NSLog(@"isMainProduct-->%d",isMainProduct?YES:NO);
-            NSLog(@"isGreenare3ign-->%d",isGreenare3ign?YES:NO);
+                NSLog(@"isMainProduct-->%d",isMainProduct?YES:NO);
+                NSLog(@"isGreenare3ign-->%d",isGreenare3ign?YES:NO);
             
-        }
+            }
     }
     if ([currentElement isEqualToString:@"desc"]){
         isdescription=YES;
+        
+        NSLog(@"isdesc-->%d",isdescription?YES:NO);
     }
     if ([currentElement isEqualToString:@"tac"]){
         isTac=YES;
+        NSLog(@"istac-->%d",isTac?YES:NO);
     }
 
 }
@@ -246,139 +360,138 @@
     
     NSLog(@"value%@",string);
         
-    if(isSameVendor&&isProduct)
-{
-         NSLog(@"is same vendor-->%d",isSameVendor?YES:NO);
-        NSLog(@"is product vendor-->%d",isProduct?YES:NO);
-        NSLog(@"same vendor product");
-        if ([currentElement isEqualToString:@"id"])
+        if(isSameVendor&&isProduct)
         {
-            vendorProductObject.productID=string;
+            NSLog(@"is same vendor-->%d",isSameVendor?YES:NO);
+            NSLog(@"is product vendor-->%d",isProduct?YES:NO);
+            NSLog(@"same vendor product");
+            if ([currentElement isEqualToString:@"id"])
+            {
+                vendorProductObject.productID=string;
             
-            NSLog(@"vendor pid %@",vendorProductObject.productID);
+                NSLog(@"vendor pid %@",vendorProductObject.productID);
             
             
-        }
-        if ([currentElement isEqualToString:@"name"]) {
-            vendorProductObject.productName=string;
-            NSLog(@"vendor pname %@",vendorProductObject.productName);
-        }
-        if ([currentElement isEqualToString:@"price"]) {
-                vendorProductObject.price=string;
-            NSLog(@"vendor price %@",vendorProductObject.price);
-        }
+            }
+            if ([currentElement isEqualToString:@"name"]) {
+                vendorProductObject.productName=string;
+                NSLog(@"vendor pname %@",vendorProductObject.productName);
+            }
+            if ([currentElement isEqualToString:@"price"]) {
+                    vendorProductObject.price=string;
+                NSLog(@"vendor price %@",vendorProductObject.price);
+            }
 
-        if ([currentElement isEqualToString:@"mainpic"]) {
-            vendorProductObject.mainpicURL=string;
-            NSLog(@"vendor main pic  %@",vendorProductObject.mainpicURL);
-        }
+            if ([currentElement isEqualToString:@"mainpic"]) {
+                vendorProductObject.mainpicURL=string;
+                NSLog(@"vendor main pic  %@",vendorProductObject.mainpicURL);
+            }
      
 
-    } else if(isRelated && isProduct){
-        NSLog(@"related product");
-        NSLog(@"is  related-->%d",isRelated?YES:NO);
-        NSLog(@"is product vendor-->%d",isProduct?YES:NO);
+        } else if(isRelated && isProduct){
+            NSLog(@"related product");
+            NSLog(@"is  related-->%d",isRelated?YES:NO);
+            NSLog(@"is product vendor-->%d",isProduct?YES:NO);
     
-        if ([currentElement isEqualToString:@"id"])
-        {
-            relatedProductObject.productID=string;
-            NSLog(@"related pid %@",relatedProductObject.productID);
+            if ([currentElement isEqualToString:@"id"])
+            {
+                relatedProductObject.productID=string;
+                NSLog(@"related pid %@",relatedProductObject.productID);
             
-        }
-        if ([currentElement isEqualToString:@"name"]) {
-            relatedProductObject.productName=string;
-             NSLog(@"related pname %@",relatedProductObject.productName);
-        }
-        if ([currentElement isEqualToString:@"price"]) {
-            relatedProductObject.price=string;
-             NSLog(@"related price %@",relatedProductObject.price);
-        }
+            }
+            if ([currentElement isEqualToString:@"name"]) {
+                relatedProductObject.productName=string;
+                NSLog(@"related pname %@",relatedProductObject.productName);
+            }
+            if ([currentElement isEqualToString:@"price"]) {
+                relatedProductObject.price=string;
+                NSLog(@"related price %@",relatedProductObject.price);
+            }
 
-        if ([currentElement isEqualToString:@"mainpic"]) {
-            relatedProductObject.mainpicURL=string;
-             NSLog(@"related main pic %@",relatedProductObject.mainpicURL);
-        }
-
+            if ([currentElement isEqualToString:@"mainpic"]) {
+                relatedProductObject.mainpicURL=string;
+                NSLog(@"related main pic %@",relatedProductObject.mainpicURL);
+            }
+            
 
    
-    }else if(isMainProduct){
-        NSLog(@"main product");
-        NSLog(@"is  main-->%d",isMainProduct?YES:NO);
+        }else if(isMainProduct){
+            NSLog(@"main product");
+            NSLog(@"is  main-->%d",isMainProduct?YES:NO);
              
-        if ([currentElement isEqualToString:@"id"])
-        {
-            pdtObject.productID=string;
-             NSLog(@"main product pid %@",pdtObject.productID);
-        }
-        if ([currentElement isEqualToString:@"name"]) {
-           pdtObject.productName=string;
-            NSLog(@"main product pname %@",pdtObject.productName);
-        }
-        if ([currentElement isEqualToString:@"price"]) {
-           pdtObject.price=string;
-            NSLog(@"main product price %@",pdtObject.price);
-        }
-        if ([currentElement isEqualToString:@"currency"]) {
-            pdtObject.Currency=string;
-        }
-        if ([currentElement isEqualToString:@"mainpic"]) {
-            pdtObject.mainpicURL=string;
-            NSLog(@"main product main pic  %@",pdtObject.mainpicURL);
-        }
-        if ([currentElement isEqualToString:@"pic1"]) {
+            if ([currentElement isEqualToString:@"id"])
+            {
+                pdtObject.productID=string;
+                NSLog(@"main product pid %@",pdtObject.productID);
+            }
+            if ([currentElement isEqualToString:@"name"]) {
+                pdtObject.productName=string;
+                NSLog(@"main product pname %@",pdtObject.productName);
+            }
+            if ([currentElement isEqualToString:@"price"]) {
+                pdtObject.price=string;
+                NSLog(@"main product price %@",pdtObject.price);
+            }
+            if ([currentElement isEqualToString:@"currency"]) {
+                pdtObject.Currency=string;
+            }
+            if ([currentElement isEqualToString:@"mainpic"]) {
+                NSLog(@"main pic");
+                
+                pdtObject.mainpicURL=string;
+                NSLog(@"main product main pic  %@",pdtObject.mainpicURL);
+            }
+            if ([currentElement isEqualToString:@"pic1"]) {
             
-           
-            pdtObject.pictureURl=[[NSMutableArray alloc]init];
-            [pdtObject.pictureURl addObject:string];
-           // NSLog(@"main product picurl %@",pdtObject.pictureURl);
-        }
-        if ([currentElement isEqualToString:@"pic2"]) {
-            [pdtObject.pictureURl addObject:string];
-           // NSLog(@"main product picurl %@",pdtObject.pictureURl);
-        }
-        if ([currentElement isEqualToString:@"pic3"]) {
-            [pdtObject.pictureURl addObject:string];
-        }
-        if ([currentElement isEqualToString:@"pic4"]) {
-            [pdtObject.pictureURl addObject:string];
-            
-        }
-        if ([currentElement isEqualToString:@"pic5"]) {
-            [pdtObject.pictureURl addObject:string];
-        }
-       
-        if (isdescription) {
-            
-       
+                
+                pdtObject.pictureURl=[[NSMutableArray alloc]init];
+                [pdtObject.pictureURl addObject:string];
+                // NSLog(@"main product picurl %@",pdtObject.pictureURl);
+            }
+            if ([currentElement isEqualToString:@"pic2"]) {
+                [pdtObject.pictureURl addObject:string];
+                // NSLog(@"main product picurl %@",pdtObject.pictureURl);
+            }
+            if ([currentElement isEqualToString:@"pic3"]) {
+                [pdtObject.pictureURl addObject:string];
+            }
+            if ([currentElement isEqualToString:@"pic4"]) {
+                [pdtObject.pictureURl addObject:string];
+                
+            }
+            if ([currentElement isEqualToString:@"pic5"]) {
+                [pdtObject.pictureURl addObject:string];
+            }
         
-        //if ([currentElement isEqualToString:@"desc"]) {
-            
-           
-            
-            
-           if ([pdtObject.productDescription length]==0) {
-                NSLog(@" desc length  %d",[pdtObject.productDescription length]);
-                pdtObject.productDescription=string;
-               
-              
-            }else{
-            
-            NSString *tempStr=pdtObject.productDescription;
-            NSLog(@" desc length  %d",[pdtObject.productDescription length]);
+//            if ([currentElement isEqualToString:@"inStore"]) {
+//                pdtObject.inStore=string;
+//            }
+            if (isdescription) {
+                    NSLog(@"isdesc-->%d",isdescription?YES:NO);
+                    if ([pdtObject.productDescription length]==0) {
+                            NSLog(@" desc length  %d",[pdtObject.productDescription length]);
+                            pdtObject.productDescription=string;
+                            NSLog(@"product length is zero");
+                        
+                    }else{
+                        NSLog(@"product length is not zero");
 
-            NSLog(@"temp str %@",tempStr);
-               //pdtObject.productDescription=tempStr;
+                        NSString *tempStr=pdtObject.productDescription;
+                        NSLog(@" desc length  %d",[pdtObject.productDescription length]);
+
+                        NSLog(@"temp str %@",tempStr);
+                //pdtObject.productDescription=tempStr;
             
-            pdtObject.productDescription=[tempStr stringByAppendingString:string];
-               NSLog(@"desc %@",pdtObject.productDescription);
-          //  }
-            NSLog(@"product desc %@",pdtObject.productDescription);
+                        pdtObject.productDescription=[tempStr stringByAppendingString:string];
+                        NSLog(@"desc %@",pdtObject.productDescription);
+                //  }
+                        NSLog(@"product desc %@",pdtObject.productDescription);
+            
+                    }
             
         }
-            
-        }
 
-if (isTac) {
+            if (isTac) {
     
     
     
@@ -387,28 +500,28 @@ if (isTac) {
     
     
     
-    if ([pdtObject.tac length]==0) {
-        NSLog(@" tac length  %d",[pdtObject.tac length]);
-        pdtObject.tac=string;
+                if ([pdtObject.tac length]==0) {
+                        NSLog(@" tac length  %d",[pdtObject.tac length]);
+                        pdtObject.tac=string;
         
         
-    }else{
+                }else{
+                    
+                        NSString *tempStr=pdtObject.tac;
+                    NSLog(@" tac length  %d",[pdtObject.tac length]);
         
-        NSString *tempStr=pdtObject.tac;
-        NSLog(@" tac length  %d",[pdtObject.tac length]);
+                    NSLog(@"temp str %@",tempStr);
+                    //pdtObject.productDescription=tempStr;
         
-        NSLog(@"temp str %@",tempStr);
-        //pdtObject.productDescription=tempStr;
-        
-        pdtObject.tac=[tempStr stringByAppendingString:string];
-        NSLog(@"tac %@",pdtObject.tac);
+                    pdtObject.tac=[tempStr stringByAppendingString:string];
+                    NSLog(@"tac %@",pdtObject.tac);
         //  }
-        NSLog(@"tac %@",pdtObject.tac);
+                    NSLog(@"tac %@",pdtObject.tac);
         
-    }
+                }
 
         
-}
+            }
      
      
     }
@@ -480,11 +593,54 @@ if (isTac) {
 
 
     }
-    
-   
+    if ([elementName isEqualToString:@"desc"]) {
+        isdescription=NO;
+       // NSLog(@"is related vendor-->%d",isRelated?YES:NO);
+        
+        
+    }
+    if ([elementName isEqualToString:@"tac"]) {
+        isTac=NO;
+        // NSLog(@"is related vendor-->%d",isRelated?YES:NO);
+        
+        
+    }
+
 }
 
 
+-(void)updateProduct:(NSMutableData *)mydata withTag:(int)imageTag{
+    
+    
+    
+    
+    
+}
+    
+  //  NSLog(@"detail page");
+    
+   // NSLog(@"image -->%@   imagetag-->%d", [image description], imageTag);
+    
+ //   [sampleObj.imagesArray addObject:image];
+    
+//    NSLog(@"image array count %d",[sampleObj.imagesArray count]);
+//    NSLog(@"image array count %d",[productObject.pictureURl count]);
+//    
+//    if ([productObject.pictureURl count]-1 == [sampleObj.imagesArray count]) {
+//        NSLog(@"request completed");
+//        
+//        ImageSliderViewController *isvc=[[self storyboard]instantiateViewControllerWithIdentifier:@"SliderController"];
+//        
+//        
+//        isvc.imagesArray=sampleObj.imagesArray;
+//        
+//        
+//        [self.view addSubview:isvc.view];
+//        
+//    }
+    
+    
+    
 
 
 @end

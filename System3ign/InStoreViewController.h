@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Product.h"
 
-@interface InStoreViewController : UIViewController
+@interface InStoreViewController : UIViewController{
+    
+    Product *productObj;
+}
+- (IBAction)backtoscan:(id)sender;
 
+- (IBAction)share:(id)sender;
+
+@property(nonatomic,retain) Product *productObj;
 @end

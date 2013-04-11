@@ -9,6 +9,17 @@
 #import "TransactionView.h"
 
 @implementation TransactionView
+@synthesize closepopup1;
+@synthesize closepopup2;
+@synthesize shipping;
+@synthesize shippingchange;
+@synthesize shippingconform;
+@synthesize fbpopclose;
+@synthesize closepop;
+@synthesize post;
+@synthesize activie1;
+@synthesize gotolock;
+
 
 - (id)initWithFrame:(CGRect)frame
 {

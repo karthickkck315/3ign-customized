@@ -28,4 +28,10 @@
 }
 */
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+
+    [self.nextResponder touchesBegan:touches withEvent:event];
+
+}
+
 @end

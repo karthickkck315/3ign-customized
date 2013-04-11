@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SplashScreenViewController : UIViewController
+@interface SplashScreenViewController : UIViewController {
+    
+    NSTimer *myTimer;
+}
 
 @end
