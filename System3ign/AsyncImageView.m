@@ -16,6 +16,8 @@
 //	[connection release];
 //	[data release]; 
 //    [super dealloc];
+    
+    NSLog(@"Test log..");
 }
 
 
